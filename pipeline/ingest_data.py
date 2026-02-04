@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
-
 import pandas as pd
 from sqlalchemy import create_engine
 from tqdm.auto import tqdm
 import click
-
-
 
 dtype = {
     "VendorID": "Int64",
@@ -50,7 +46,6 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, year, month, chunksize, targe
     url_prefix = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow'
     url = f'{url_prefix}/yellow_tripdata_{year:04d}-{month:02d}.csv.gz'
 
-
     engine = create_engine(f'postgresql://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
 
     df_iter = pd.read_csv(
@@ -58,7 +53,7 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, year, month, chunksize, targe
         dtype=dtype,
         parse_dates=parse_dates,
         iterator=True,
-        chunksize=chunksize
+        chunksize=chunksize,
     )
 
     first = True
